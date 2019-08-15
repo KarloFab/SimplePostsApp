@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import axios from "../../../axios";
 import Post from "../../../components/Post/Post";
 import stlyes from "./Posts.module.css";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
+import FullPost from "../FullPost/FullPost";
 
 class Posts extends Component {
   state = {
@@ -39,7 +40,12 @@ class Posts extends Component {
       );
     });
 
-    return <section className={stlyes.Posts}>{posts}</section>;
+    return (
+      <div>
+        <Route path={this.props.match.ulr + '/:id'} exact component={FullPost} />
+        <section className={stlyes.Posts}>{posts}</section>
+      </div>
+    );
   }
 }
 
