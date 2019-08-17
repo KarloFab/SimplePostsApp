@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import Posts from "./Posts/Posts";
+import React, { Component, Suspense } from "react";
 import NewPost from "./NewPost/NewPost";
 import "./Blog.css";
 import { Route, NavLink, Switch, Redirect } from "react-router-dom";
 
+const Posts = React.lazy(() => import('./Posts/Posts'))
+
 class Blog extends Component {
   state = {
-    auth: false
+    auth: true
   };
 
   render() {
@@ -35,7 +36,11 @@ class Blog extends Component {
           </nav>
         </header>
         <Switch>
-          {this.state.auth ?<Route path="/posts" component={Posts} /> : null} 
+          {this.state.auth ?<Route path="/posts" render={() => (
+            <Suspense fallback={<h1>Loading</h1>}>
+              <Posts />
+            </Suspense>
+          )}></Route> : null} 
           <Route path="/new-post" component={NewPost} />
           <Redirect from="/" to="/posts" />
         </Switch>

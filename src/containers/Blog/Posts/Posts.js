@@ -42,7 +42,7 @@ class Posts extends Component {
 
     return (
       <div>
-        <Route path={this.props.match.ulr + '/:id'} exact component={FullPost} />
+        <Route path={'/posts/:id'} exact component={FullPost} />
         <section className={stlyes.Posts}>{posts}</section>
       </div>
     );
